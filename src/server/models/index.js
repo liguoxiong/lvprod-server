@@ -1,4 +1,4 @@
 import User from "./user.model";
-import Message from "./message.model";
-const models = { User, Message };
+import Category from "./category.model";
+const models = { User, Category };
 export default models;

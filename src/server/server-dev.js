@@ -23,6 +23,7 @@ app.use(
 );
 app.use(webpackHotMiddleware(compiler));
 app.use("/api/user", routes.user);
+app.use('/api/categories', routes.category);
 // app.get("*", (req, res, next) => {
 //   compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
 //     if (err) {
