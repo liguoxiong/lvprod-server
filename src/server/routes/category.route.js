@@ -1,6 +1,6 @@
-import {Router} from 'express'
-import auth from '../middleware/auth'
-import categoryController from './../controller/category.controller'
+import { Router } from "express";
+import auth from "../middleware/auth";
+import categoryController from "./../controller/category.controller";
 
 const router = Router();
 
@@ -10,4 +10,4 @@ router.get("/:id", categoryController.getCategoryById);
 router.put("/update/:id", categoryController.updateCategoryById);
 router.delete("/delete/:id", categoryController.deleteCategoryById);
 
-export default router
+export default router;
