@@ -7,7 +7,8 @@ import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import config from "../../webpack.dev.config.js";
 import routes from "./routes";
-import models, { connectDb } from "./models";
+import models from "./models";
+import connectDb from './../configs/db';
 const app = express(),
   // DIST_DIR = __dirname,
   // HTML_FILE = path.join(DIST_DIR, "index.html"),
@@ -31,29 +32,24 @@ app.use("/api", routes.api);
 //     res.end();
 //   });
 // });
-const eraseDatabaseOnSync = true;
+// const eraseDatabaseOnSync = true;
 const PORT = process.env.PORT || 8080;
-connectDb().then(async () => {
-  if (eraseDatabaseOnSync) {
-    await Promise.all([
-      models.User.deleteMany({}),
-      models.Message.deleteMany({})
-    ]);
-    createUsersWithMessages();
-  }
-  const createUsersWithMessages = async () => {
-    const user1 = new models.User({
-      username: "rwieruch"
-    });
-    const message1 = new models.Message({
-      text: "Published the Road to learn React",
-      user: user1.id
-    });
-    await message1.save();
-    await user1.save();
-  };
-  app.listen(PORT, () => {
-    console.log(`App listening to ${PORT}....`);
-    console.log("Press Ctrl+C to quit.");
+connectDb();
+
+const createUsersWithMessages = async () => {
+  const user1 = new models.User({
+    username: "rwieruch"
   });
+  const message1 = new models.Message({
+    text: "Published the Road to learn React",
+    user: user1.id
+  });
+  await message1.save();
+  await user1.save();
+};
+createUsersWithMessages();
+app.listen(PORT, () => {
+  console.log(`App listening to ${PORT}....`);
+  console.log("Press Ctrl+C to quit.");
 });
+

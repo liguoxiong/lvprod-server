@@ -1,17 +1,22 @@
-import dotEnv from "dotenv";
-import mongoDb from "mongodb";
-dotEnv.config();
-const connectDb = () => {
-  const MongoClient = mongoDb.MongoClient;
-  const uri = process.env.MONGOLAB_URI;
-  const client = new MongoClient(uri, { useNewUrlParser: true });
-  return client.connect(err => {
-    if (err) {
-      console.log("mongo connect err", err);
-    }
-    //   const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-  });
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+      await mongoose.connect(process.env.MONGOLAB_URI, {
+          useNewUrlParser: true,
+          useCreateIndex: true,
+          useFindAndModify: false,
+          useUnifiedTopology: true
+      });
+
+      console.log('MongoDB Connected...');
+  } catch (err) {
+      console.error(err.message);
+      // Exit process with failure
+      process.exit(1);
+  }
 };
-export default connectDb;
+
+export default connectDB;

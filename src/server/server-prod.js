@@ -3,7 +3,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import routes from "./routes";
-import models, { connectDb } from "./models";
+import connectDb from './../configs/db';
+
 const app = express(),
   DIST_DIR = __dirname,
   HTML_FILE = path.join(DIST_DIR, "index.html");
@@ -13,17 +14,9 @@ app.get("*", (req, res) => {
   res.sendFile(HTML_FILE);
 });
 app.use("/api", routes.api);
-const eraseDatabaseOnSync = true;
 const PORT = process.env.PORT || 8080;
-connectDb().then(async () => {
-  if (eraseDatabaseOnSync) {
-    await Promise.all([
-      models.User.deleteMany({}),
-      models.Message.deleteMany({})
-    ]);
-  }
-  app.listen(PORT, () => {
-    console.log(`App listening to ${PORT}....`);
-    console.log("Press Ctrl+C to quit.");
-  });
+connectDb();
+app.listen(PORT, () => {
+  console.log(`App listening to ${PORT}....`);
+  console.log("Press Ctrl+C to quit.");
 });
