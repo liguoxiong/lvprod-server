@@ -1,5 +1,5 @@
-import api from "./api";
+import user from "./user.route";
 
 export default {
-  api
+  user
 };

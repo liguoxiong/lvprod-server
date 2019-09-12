@@ -15,13 +15,14 @@ const app = express(),
   compiler = webpack(config);
 
 app.use(cors());
+app.use(express.json());
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath
   })
 );
 app.use(webpackHotMiddleware(compiler));
-app.use("/api", routes.api);
+app.use("/api/user", routes.user);
 // app.get("*", (req, res, next) => {
 //   compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
 //     if (err) {
