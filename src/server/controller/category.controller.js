@@ -28,10 +28,10 @@ const createCategory = async (req, res) => {
       success: true,
       message: "Add new category successfull"
     });
-  } catch {
+  } catch(err) {
     return res.status(500).send({
       success: false,
-      message: "Server error!"
+      message: err.message
     });
   }
 };
@@ -48,10 +48,10 @@ const getAllCategory = async (req, res) => {
       success: true,
       data: category
     });
-  } catch {
+  } catch(err) {
     return res.status(500).send({
       success: false,
-      message: "Server error!"
+      message: err.message
     });
   }
 };
@@ -68,10 +68,10 @@ const getCategoryById = async (req, res) => {
       success: true,
       data: category
     });
-  } catch {
+  } catch(err) {
     return res.status(500).send({
       success: false,
-      message: "Server error!"
+      message: err.message
     });
   }
 };
@@ -90,10 +90,10 @@ const updateCategoryById = async (req, res) => {
       success: true,
       message: "Update category successfull"
     });
-  } catch {
+  } catch(err) {
     return res.status(500).send({
       success: false,
-      message: "Server error!"
+      message: err.message
     });
   }
 };
@@ -110,10 +110,10 @@ const deleteCategoryById = async (req, res) => {
       success: true,
       message: "Delete category successfull"
     });
-  } catch {
+  } catch(err) {
     return res.status(500).send({
       success: false,
-      message: "Server error!"
+      message: err.message
     });
   }
 };

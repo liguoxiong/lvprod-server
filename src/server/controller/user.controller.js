@@ -64,10 +64,10 @@ const userLogin = async (req, res) => {
         email: user.email
       }
     });
-  } catch {
-    return  res.status(500).send({
+  } catch(err) {
+    return res.status(500).send({
       success: false,
-      message:'Server error!'
+      message: err.message
     });
   }
 }

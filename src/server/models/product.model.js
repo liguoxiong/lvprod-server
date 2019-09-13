@@ -73,7 +73,7 @@ export const validateProduct = product => {
       .min(3)
       .max(255)
       .required(),
-    category: Joi.ObjectId.required()
+    category: Joi.string().required()
   };
 
   return Joi.validate(product, schema);
