@@ -30,10 +30,9 @@ const ProductSchema = new mongoose.Schema({
     type: String
   },
   image: {
-    type: String,
+    type: Array,
     required: true,
-    minlength: 3,
-    maxlength: 255
+    default: []
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
@@ -69,10 +68,7 @@ export const validateProduct = product => {
     warranty_time: Joi.string()
       .allow("")
       .optional(),
-    image: Joi.string()
-      .min(3)
-      .max(255)
-      .required(),
+    image: Joi.array().required(),
     category: Joi.string().required()
   };
 
