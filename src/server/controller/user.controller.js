@@ -56,6 +56,16 @@ const userLogin = async (req, res) => {
       message:'Password not valid!'
     });
     const token = user.generateAuthToken();
+    const now = new Date()
+    now.setDate(now.getDate() + 1)
+    res.cookie(
+      'token',
+      JSON.stringify({ id: user[0].id, deadline: now.getTime() }),
+      {
+        maxAge: 900000,
+        httpOnly: true,
+      }
+    )
     res.status(200).header("x-auth-token", token).send({
       success: true,
       data: {
@@ -72,8 +82,16 @@ const userLogin = async (req, res) => {
   }
 }
 
+const userLogout = (req, res) => {
+  res.clearCookie('token')
+  res.status(200).header("x-auth-token", '').send({
+    success: true,
+    message: 'Logout successful'
+  })
+}
 export default {
   getCurrentUser,
   userRegister,
-  userLogin
+  userLogin,
+  userLogout
 }

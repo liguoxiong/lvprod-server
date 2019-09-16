@@ -4,9 +4,9 @@ import userController from './../controller/user.controller'
 
 const router = Router();
 router.get("/current", auth, userController.getCurrentUser);
-
 router.post("/register", userController.userRegister);
-
 router.post('/login', userController.userLogin);
+router.post('/logout', userController.userLogout);
+
 
 export default router
