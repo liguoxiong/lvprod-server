@@ -26,6 +26,7 @@ app.use("/api/user", routes.user);
 app.use("/api/categories", routes.category);
 app.use("/api/products", routes.product);
 app.use("/api/photos", routes.image);
+app.use("/api/routes", routes.sidebarList);
 // app.get("*", (req, res, next) => {
 //   compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
 //     if (err) {

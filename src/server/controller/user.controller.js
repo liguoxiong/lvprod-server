@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import qs from 'qs'
 import User, {validateUser} from './../models/user.model'
 
 const getCurrentUser = async (req, res) => {
@@ -8,6 +9,29 @@ const getCurrentUser = async (req, res) => {
     data: user
   });
 };
+
+const getCurrentUserV2 = async (req, res) => {
+  const cookie = req.headers.cookie || ''
+    const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
+    const response = {}
+    let user = {}
+    if (!cookies.token) {
+      res.status(200).send({ message: 'Not Login' })
+      return
+    }
+    const token = JSON.parse(cookies.token)
+    if (token) {
+      response.success = token.deadline > new Date().getTime()
+    }
+    if (response.success) {
+      const userItem = await User.findById(token.id).select("-password");
+      if (userItem) {
+        user = {permissions: {role: 'admin'}, ...userItem}
+      }
+    }
+    response.user = user
+    res.json(response)
+}
 
 const userRegister = async (req, res) => {
   // validate the request body first
@@ -60,7 +84,7 @@ const userLogin = async (req, res) => {
     now.setDate(now.getDate() + 1)
     res.cookie(
       'token',
-      JSON.stringify({ id: user[0].id, deadline: now.getTime() }),
+      JSON.stringify({ id: user._id, deadline: now.getTime() }),
       {
         maxAge: 900000,
         httpOnly: true,
@@ -91,6 +115,7 @@ const userLogout = (req, res) => {
 }
 export default {
   getCurrentUser,
+  getCurrentUserV2,
   userRegister,
   userLogin,
   userLogout
