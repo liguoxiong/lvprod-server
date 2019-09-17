@@ -11,6 +11,7 @@ import connectDb from "./../configs/db";
 const app = express(),
   DIST_DIR = __dirname,
   HTML_FILE = path.join(DIST_DIR, "index.html"),
+  ADMIN_HTML_FILE = path.join(DIST_DIR, "admin.html"),
   compiler = webpack(config);
 
 app.use(cors());
@@ -27,7 +28,17 @@ app.use("/api/categories", routes.category);
 app.use("/api/products", routes.product);
 app.use("/api/photos", routes.image);
 app.use("/api/routes", routes.sidebarList);
-app.get("/admin", (req, res, next) => {
+app.get("/admin/*", (req, res, next) => {
+  compiler.outputFileSystem.readFile(ADMIN_HTML_FILE, (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.set("content-type", "text/html");
+    res.send(result);
+    res.end();
+  });
+});
+app.get("/", (req, res, next) => {
   compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
     if (err) {
       return next(err);

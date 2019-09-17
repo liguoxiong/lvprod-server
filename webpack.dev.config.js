@@ -63,6 +63,11 @@ module.exports = {
       filename: "./index.html",
       excludeChunks: ["server"]
     }),
+    new HtmlWebPackPlugin({
+      template: "./src/html/admin.html",
+      filename: "./admin/index.html",
+      excludeChunks: ["server"]
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
