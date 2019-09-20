@@ -28,6 +28,9 @@ app.use("/api/categories", routes.category);
 app.use("/api/products", routes.product);
 app.use("/api/photos", routes.image);
 app.use("/api/routes", routes.sidebarList);
+app.use("/api/info", routes.info);
+app.use("/api/banners", routes.banner);
+app.use("/api/services", routes.service);
 app.get("/admin/*", (req, res, next) => {
   compiler.outputFileSystem.readFile(ADMIN_HTML_FILE, (err, result) => {
     if (err) {
