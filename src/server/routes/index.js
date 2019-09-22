@@ -2,9 +2,10 @@ import user from "./user.route";
 import category from "./category.route";
 import product from "./product.route";
 import image from "./image.route";
-import sidebarList from './sidebarList.route';
-import info from './info.route';
-import banner from './banner.route'
+import sidebarList from "./sidebarList.route";
+import info from "./info.route";
+import banner from "./banner.route";
+import service from "./service.route";
 export default {
   user,
   category,
@@ -12,5 +13,6 @@ export default {
   image,
   sidebarList,
   info,
-  banner
+  banner,
+  service
 };

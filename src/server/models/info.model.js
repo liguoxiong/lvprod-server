@@ -5,7 +5,7 @@ dotEnv.config();
 //simple schema
 const InfoSchema = new mongoose.Schema({
   company: {
-    type: String,
+    type: String
   },
   address: {
     type: String
@@ -31,6 +31,9 @@ const InfoSchema = new mongoose.Schema({
   viber: {
     type: String
   },
+  logo: {
+    type: String
+  },
   created_at: { type: Date, default: Date.now }
 });
 
@@ -39,8 +42,7 @@ const Info = mongoose.model("Info", InfoSchema);
 //function to validate Product
 export const validateInfo = info => {
   const schema = {
-    company: Joi.string()
-      .required(),
+    company: Joi.string().required(),
     address: Joi.string()
       .allow("")
       .optional(),
@@ -60,11 +62,14 @@ export const validateInfo = info => {
       .allow("")
       .optional(),
     viber: Joi.string()
-    .allow("")
-    .optional(),
+      .allow("")
+      .optional(),
     skype: Joi.string()
-    .allow("")
-    .optional(),
+      .allow("")
+      .optional(),
+    logo: Joi.string()
+      .allow("")
+      .optional()
   };
 
   return Joi.validate(info, schema);

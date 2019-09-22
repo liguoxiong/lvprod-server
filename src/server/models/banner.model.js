@@ -14,12 +14,12 @@ const BannerSchema = new mongoose.Schema({
     unique: false,
     required: false
   },
+  created_at: { type: Date, default: Date.now },
   image: {
     type: String,
     unique: false,
     required: true
-  },
-  created_at: { type: Date, default: Date.now }
+  }
 });
 
 const Banner = mongoose.model("Banner", BannerSchema);

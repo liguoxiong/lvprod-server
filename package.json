@@ -8,6 +8,7 @@
     "@babel/runtime": "^7.6.0",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
@@ -18,8 +19,8 @@
     "qs": "^6.8.0"
   },
   "scripts": {
-    "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
-    "buildProd": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "buildDev": "rm -rf dist/server && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
+    "buildProd": "rm -rf dist/server && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
     "start": "node ./dist/server.js"
   },
   "devDependencies": {

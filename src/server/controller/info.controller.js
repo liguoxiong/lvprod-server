@@ -1,3 +1,4 @@
+import saveImage, { isBase64String } from "./../middleware/saveImage";
 import Info, { validateInfo } from "../models/info.model";
 
 const createInfo = async (req, res) => {
@@ -10,6 +11,14 @@ const createInfo = async (req, res) => {
         message: error.details[0].message
       });
 
+    const imagePath = await saveImage(req.body.logo);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
     //find an existing info
     let info = await Info.findOne({ company: req.body.company });
     if (info)
@@ -28,13 +37,14 @@ const createInfo = async (req, res) => {
       zalo: req.body.zalo,
       skype: req.body.skype,
       viber: req.body.viber,
+      logo: imagePath.message
     });
     await info.save();
     res.status(200).send({
       success: true,
       message: "Add new info successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -54,7 +64,7 @@ const getAllInfo = async (req, res) => {
       success: true,
       data: info
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -74,7 +84,7 @@ const getInfoById = async (req, res) => {
       success: true,
       data: info
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -83,9 +93,21 @@ const getInfoById = async (req, res) => {
 };
 
 const updateInfoById = async (req, res) => {
+  const updateObj = req.body;
+  if (isBase64String(req.body.logo)) {
+    const imagePath = await saveImage(req.body.logo);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
+    updateObj.logo = imagePath.message;
+  }
   try {
     let info = await Info.findByIdAndUpdate(req.params.id, {
-      $set: req.body
+      $set: req.updateObj
     });
     if (!info)
       return res.status(400).send({
@@ -96,7 +118,7 @@ const updateInfoById = async (req, res) => {
       success: true,
       message: "Update info successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -116,13 +138,14 @@ const deleteInfoById = async (req, res) => {
       success: true,
       message: "Delete info successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
     });
   }
 };
+
 export default {
   createInfo,
   getInfoById,

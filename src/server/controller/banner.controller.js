@@ -1,4 +1,5 @@
 import Banner, { validateBanner } from "../models/banner.model";
+import saveImage, { isBase64String } from "./../middleware/saveImage";
 
 const createBanner = async (req, res) => {
   try {
@@ -10,6 +11,14 @@ const createBanner = async (req, res) => {
         message: error.details[0].message
       });
 
+    const imagePath = await saveImage(req.body.image);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
     //find an existing banner
     // let banner = await Banner.findOne({ title: req.body.title });
     // if (banner)
@@ -21,14 +30,14 @@ const createBanner = async (req, res) => {
     const banner = new Banner({
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image
+      image: imagePath.message
     });
     await banner.save();
     res.status(200).send({
       success: true,
       message: "Add new banner successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -48,7 +57,7 @@ const getAllBanner = async (req, res) => {
       success: true,
       data: banner
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -68,7 +77,7 @@ const getBannerById = async (req, res) => {
       success: true,
       data: banner
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -77,9 +86,21 @@ const getBannerById = async (req, res) => {
 };
 
 const updateBannerById = async (req, res) => {
+  const updateObj = req.body;
+  if (isBase64String(req.body.image)) {
+    const imagePath = await saveImage(req.body.image);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
+    updateObj.image = imagePath.message;
+  }
   try {
     let banner = await Banner.findByIdAndUpdate(req.params.id, {
-      $set: req.body
+      $set: updateObj
     });
     if (!banner)
       return res.status(400).send({
@@ -90,7 +111,7 @@ const updateBannerById = async (req, res) => {
       success: true,
       message: "Update banner successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -110,7 +131,7 @@ const deleteBannerById = async (req, res) => {
       success: true,
       message: "Delete banner successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message

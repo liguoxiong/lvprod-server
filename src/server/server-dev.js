@@ -11,9 +11,9 @@ import connectDb from "./../configs/db";
 const app = express(),
   DIST_DIR = __dirname,
   HTML_FILE = path.join(DIST_DIR, "index.html"),
-  ADMIN_HTML_FILE = path.join(DIST_DIR, "admin.html"),
+  ADMIN_HTML_FILE = path.join(DIST_DIR, "admin/index.html"),
   compiler = webpack(config);
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));

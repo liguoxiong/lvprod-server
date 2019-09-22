@@ -1,3 +1,4 @@
+import saveImage, { isBase64String } from "./../middleware/saveImage";
 import Service, { validateService } from "../models/service.model";
 
 const createService = async (req, res) => {
@@ -9,6 +10,14 @@ const createService = async (req, res) => {
         success: false,
         message: error.details[0].message
       });
+    const imagePath = await saveImage(req.body.image);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
 
     //find an existing service
     let service = await Service.findOne({ title: req.body.title });
@@ -21,14 +30,14 @@ const createService = async (req, res) => {
     service = new Service({
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image
+      image: imagePath.message
     });
     await service.save();
     res.status(200).send({
       success: true,
       message: "Add new service successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -48,7 +57,7 @@ const getAllService = async (req, res) => {
       success: true,
       data: service
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -68,7 +77,7 @@ const getServiceById = async (req, res) => {
       success: true,
       data: service
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -77,9 +86,21 @@ const getServiceById = async (req, res) => {
 };
 
 const updateServiceById = async (req, res) => {
+  const updateObj = req.body;
+  if (isBase64String(req.body.image)) {
+    const imagePath = await saveImage(req.body.image);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
+    updateObj.image = imagePath.message;
+  }
   try {
     let service = await Service.findByIdAndUpdate(req.params.id, {
-      $set: req.body
+      $set: updateObj
     });
     if (!service)
       return res.status(400).send({
@@ -90,7 +111,7 @@ const updateServiceById = async (req, res) => {
       success: true,
       message: "Update service successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -110,7 +131,7 @@ const deleteServiceById = async (req, res) => {
       success: true,
       message: "Delete service successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message

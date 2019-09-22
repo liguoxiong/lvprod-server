@@ -1,43 +1,81 @@
-
 const database = [
   {
-    id: '1',
-    icon: 'dashboard',
-    name: 'Dashboard',
+    id: "1",
+    icon: "dashboard",
+    name: "Dashboard",
     zh: {
-      name: '仪表盘',
+      name: "仪表盘"
     },
-    'pt-br': {
-      name: 'Dashboard',
+    "pt-br": {
+      name: "Dashboard"
     },
-    route: '/dashboard',
+    route: "/dashboard"
   },
   {
-    id: '2',
-    breadcrumbParentId: '1',
-    name: 'Products',
+    id: "2",
+    breadcrumbParentId: "1",
+    name: "Products",
     zh: {
-      name: '用户管理',
+      name: "用户管理"
     },
-    'pt-br': {
-      name: 'Usuário',
+    "pt-br": {
+      name: "Usuário"
     },
-    icon: 'shopping-cart',
-    route: '/product',
+    icon: "shopping-cart",
+    route: "/product"
   },
   {
-    id: '6',
-    breadcrumbParentId: '1',
-    name: 'Categories',
+    id: "6",
+    breadcrumbParentId: "1",
+    name: "Categories",
     zh: {
-      name: '范畴',
+      name: "范畴"
     },
-    'pt-br': {
-      name: 'Usuário',
+    "pt-br": {
+      name: "Usuário"
     },
-    icon: 'appstore',
-    route: '/category',
+    icon: "appstore",
+    route: "/category"
   },
+  {
+    id: "3",
+    breadcrumbParentId: "1",
+    name: "Info",
+    zh: {
+      name: "范畴"
+    },
+    "pt-br": {
+      name: "Usuário"
+    },
+    icon: "user",
+    route: "/info"
+  },
+  {
+    id: "4",
+    breadcrumbParentId: "1",
+    name: "Banner",
+    zh: {
+      name: "范畴"
+    },
+    "pt-br": {
+      name: "Usuário"
+    },
+    icon: "build",
+    route: "/banner"
+  },
+  {
+    id: "5",
+    breadcrumbParentId: "1",
+    name: "Service",
+    zh: {
+      name: "范畴"
+    },
+    "pt-br": {
+      name: "Usuário"
+    },
+    icon: "cluster",
+    route: "/service"
+  }
   // {
   //   id: '7',
   //   breadcrumbParentId: '1',
@@ -157,11 +195,11 @@ const database = [
   //   icon: 'area-chart',
   //   route: '/chart/Recharts',
   // },
-]
+];
 
 const getRoutes = (req, res) => {
-  res.status(200).json(database)
-}
+  res.status(200).json(database);
+};
 export default {
-  getRoutes,
+  getRoutes
 };

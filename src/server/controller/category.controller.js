@@ -1,3 +1,4 @@
+import saveImage, { isBase64String } from "./../middleware/saveImage";
 import Category, { validateCategory } from "../models/category.model";
 
 const createCategory = async (req, res) => {
@@ -9,7 +10,14 @@ const createCategory = async (req, res) => {
         success: false,
         message: error.details[0].message
       });
-
+    const imagePath = await saveImage(req.body.logo);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
     //find an existing category
     let category = await Category.findOne({ title: req.body.title });
     if (category)
@@ -21,14 +29,14 @@ const createCategory = async (req, res) => {
     category = new Category({
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image
+      image: imagePath.message
     });
     await category.save();
     res.status(200).send({
       success: true,
       message: "Add new category successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -48,7 +56,7 @@ const getAllCategory = async (req, res) => {
       success: true,
       data: category
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -68,7 +76,7 @@ const getCategoryById = async (req, res) => {
       success: true,
       data: category
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -77,9 +85,21 @@ const getCategoryById = async (req, res) => {
 };
 
 const updateCategoryById = async (req, res) => {
+  const updateObj = req.body;
+  if (isBase64String(req.body.image)) {
+    const imagePath = await saveImage(req.body.image);
+    console.log("imagepath", imagePath);
+    if (!imagePath.success) {
+      return res.status(500).send({
+        success: false,
+        message: imagePath.message
+      });
+    }
+    updateObj.image = imagePath.message;
+  }
   try {
     let category = await Category.findByIdAndUpdate(req.params.id, {
-      $set: req.body
+      $set: updateObj
     });
     if (!category)
       return res.status(400).send({
@@ -90,7 +110,7 @@ const updateCategoryById = async (req, res) => {
       success: true,
       message: "Update category successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -110,7 +130,7 @@ const deleteCategoryById = async (req, res) => {
       success: true,
       message: "Delete category successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
