@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/lvprod-client/static/css/main.26d67ea1.chunk.css",
+    "main.js": "/lvprod-client/static/js/main.a1852063.chunk.js",
+    "main.js.map": "/lvprod-client/static/js/main.a1852063.chunk.js.map",
+    "runtime~main.js": "/lvprod-client/static/js/runtime~main.85a80587.js",
+    "runtime~main.js.map": "/lvprod-client/static/js/runtime~main.85a80587.js.map",
+    "static/css/2.dea2228f.chunk.css": "/lvprod-client/static/css/2.dea2228f.chunk.css",
+    "static/js/2.7080748e.chunk.js": "/lvprod-client/static/js/2.7080748e.chunk.js",
+    "static/js/2.7080748e.chunk.js.map": "/lvprod-client/static/js/2.7080748e.chunk.js.map",
+    "index.html": "/lvprod-client/index.html",
+    "precache-manifest.a201f408fa04ec489bc43895ba856fb8.js": "/lvprod-client/precache-manifest.a201f408fa04ec489bc43895ba856fb8.js",
+    "service-worker.js": "/lvprod-client/service-worker.js",
+    "static/css/2.dea2228f.chunk.css.map": "/lvprod-client/static/css/2.dea2228f.chunk.css.map",
+    "static/css/main.26d67ea1.chunk.css.map": "/lvprod-client/static/css/main.26d67ea1.chunk.css.map",
+    "static/media/facebook.f4c2b29b.svg": "/lvprod-client/static/media/facebook.f4c2b29b.svg",
+    "static/media/messenger.11f38539.svg": "/lvprod-client/static/media/messenger.11f38539.svg",
+    "static/media/skype.b7d9c06f.svg": "/lvprod-client/static/media/skype.b7d9c06f.svg",
+    "static/media/viber.cf1c5d3e.svg": "/lvprod-client/static/media/viber.cf1c5d3e.svg",
+    "static/media/zalo.7d315d4a.svg": "/lvprod-client/static/media/zalo.7d315d4a.svg"
+  }
+}
