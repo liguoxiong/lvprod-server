@@ -16,9 +16,6 @@ app.use(express.urlencoded({ limit: "50mb" }));
 app.get("/admin/*", (req, res) => {
   res.sendFile(ADMIN_HTML_FILE);
 });
-app.get("/", (req, res) => {
-  res.sendFile(HOME_HTML_FILE);
-});
 app.use("/api/user", routes.user);
 app.use("/api/categories", routes.category);
 app.use("/api/products", routes.product);
@@ -27,6 +24,9 @@ app.use("/api/routes", routes.sidebarList);
 app.use("/api/info", routes.info);
 app.use("/api/banners", routes.banner);
 app.use("/api/services", routes.service);
+app.get("/", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
 
 const PORT = process.env.PORT || 8080;
 connectDb();
