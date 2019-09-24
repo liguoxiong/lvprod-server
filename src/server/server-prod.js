@@ -24,6 +24,7 @@ app.use("/api/routes", routes.sidebarList);
 app.use("/api/info", routes.info);
 app.use("/api/banners", routes.banner);
 app.use("/api/services", routes.service);
+app.use("/api/sendmail", routes.mail);
 app.get("/", (req, res) => {
   res.sendFile(HOME_HTML_FILE);
 });

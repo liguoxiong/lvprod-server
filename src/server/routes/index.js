@@ -6,6 +6,7 @@ import sidebarList from "./sidebarList.route";
 import info from "./info.route";
 import banner from "./banner.route";
 import service from "./service.route";
+import mail from "./mail.route";
 export default {
   user,
   category,
@@ -14,5 +15,6 @@ export default {
   sidebarList,
   info,
   banner,
-  service
+  service,
+  mail
 };
