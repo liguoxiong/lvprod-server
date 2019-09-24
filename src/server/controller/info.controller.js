@@ -107,7 +107,7 @@ const updateInfoById = async (req, res) => {
   }
   try {
     let info = await Info.findByIdAndUpdate(req.params.id, {
-      $set: req.updateObj
+      $set: updateObj
     });
     if (!info)
       return res.status(400).send({
