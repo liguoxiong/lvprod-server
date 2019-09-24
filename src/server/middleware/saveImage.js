@@ -51,7 +51,7 @@ const saveImage = async imageData => {
       });
       return {
         success: true,
-        message: `/images/${uniqueRandomImageName}`
+        message: `/public/images/${uniqueRandomImageName}`
       };
     } catch (error) {
       console.log("writeFile err");
