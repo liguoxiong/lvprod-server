@@ -1,5 +1,7 @@
-import saveImage from './../middleware/saveImage';
-import Construction, { validateConstruction } from '../models/construction.model';
+import saveImage from "./../middleware/saveImage";
+import Construction, {
+  validateConstruction
+} from "../models/construction.model";
 
 const createConstruction = async (req, res) => {
   try {
@@ -8,24 +10,24 @@ const createConstruction = async (req, res) => {
     if (error)
       return res.status(400).send({
         success: false,
-        message: error.details[0].message,
+        message: error.details[0].message
       });
     const { image } = req.body;
     let imageSubmit = [];
     image.forEach(async item => {
       const imagePath = await saveImage(item.thumbUrl);
-      console.log('imagepath', imagePath);
+      console.log("imagepath", imagePath);
       if (!imagePath.success) {
         return res.status(500).send({
           success: false,
-          message: imagePath.message,
+          message: imagePath.message
         });
       }
       imageSubmit.push({
         uid: item.uid,
         name: item.name,
         status: item.status,
-        url: imagePath.message,
+        url: imagePath.message
       });
     });
 
@@ -34,23 +36,23 @@ const createConstruction = async (req, res) => {
     if (construction)
       return res.status(400).send({
         success: false,
-        message: 'Construction already existed.',
+        message: "Construction already existed."
       });
 
     construction = new Construction({
       title: req.body.title,
       description: req.body.description,
-      image: imageSubmit,
+      image: imageSubmit
     });
     await construction.save();
     res.status(200).send({
       success: true,
-      message: 'Add new construction successfull',
+      message: "Add new construction successfull"
     });
   } catch (err) {
     return res.status(500).send({
       success: false,
-      message: err.message,
+      message: err.message
     });
   }
 };
@@ -60,17 +62,17 @@ const getAllConstruction = async (req, res) => {
     const limitValue = parseInt(req.query.limit) || 10;
     const skipValue = parseInt(req.query.skip) || 0;
     let construction = await Construction.find()
-      .sort('-created_at')
+      .sort("-created_at")
       .limit(limitValue)
       .skip(skipValue);
     res.status(200).send({
       success: true,
-      data: construction,
+      data: construction
     });
   } catch (err) {
     return res.status(500).send({
       success: false,
-      message: err.message,
+      message: err.message
     });
   }
 };
@@ -81,16 +83,16 @@ const getConstructionById = async (req, res) => {
     if (!construction)
       return res.status(400).send({
         success: false,
-        message: 'Construction is not existed.',
+        message: "Construction is not existed."
       });
     res.status(200).send({
       success: true,
-      data: construction,
+      data: construction
     });
   } catch (err) {
     return res.status(500).send({
       success: false,
-      message: err.message,
+      message: err.message
     });
   }
 };
@@ -99,50 +101,42 @@ const updateConstructionById = async (req, res) => {
   try {
     const { image, ...rst } = req.body;
     let imageSubmit = [];
-    Promise.all(
-      image.forEach(async item => {
-        if (item.thumbUrl) {
-          const imagePath = await saveImage(item.thumbUrl);
-          console.log('imagepath', imagePath);
-          // if (!imagePath.success) {
-          //   return res.status(500).send({
-          //     success: false,
-          //     message: imagePath.message,
-          //   });
-          // }
+    for (const item of image) {
+      if (item.thumbUrl) {
+        const imagePath = await saveImage(item.thumbUrl);
+        if (imagePath.success) {
           imageSubmit.push({
             uid: item.uid,
             name: item.name,
             status: item.status,
-            url: imagePath.message,
-          });
-        } else {
-          imageSubmit.push({
-            uid: item.uid,
-            name: item.name,
-            status: item.status,
-            url: item.url,
+            url: imagePath.message
           });
         }
-      }),
-    );
-
+      } else {
+        imageSubmit.push({
+          uid: item.uid,
+          name: item.name,
+          status: item.status,
+          url: item.url
+        });
+      }
+    }
     let construction = await Construction.findByIdAndUpdate(req.params.id, {
-      $set: { rst, image: imageSubmit },
+      $set: { rst, image: imageSubmit }
     });
     if (!construction)
       return res.status(400).send({
         success: false,
-        message: 'Construction is not existed.',
+        message: "Construction is not existed."
       });
     res.status(200).send({
       success: true,
-      message: 'Update construction successfull',
+      message: "Update construction successfull"
     });
   } catch (err) {
     return res.status(500).send({
       success: false,
-      message: err.message,
+      message: err.message
     });
   }
 };
@@ -153,16 +147,16 @@ const deleteConstructionById = async (req, res) => {
     if (!construction)
       return res.status(400).send({
         success: false,
-        message: 'Construction is not existed.',
+        message: "Construction is not existed."
       });
     res.status(200).send({
       success: true,
-      message: 'Delete construction successfull',
+      message: "Delete construction successfull"
     });
   } catch (err) {
     return res.status(500).send({
       success: false,
-      message: err.message,
+      message: err.message
     });
   }
 };
@@ -171,5 +165,5 @@ export default {
   getConstructionById,
   updateConstructionById,
   deleteConstructionById,
-  getAllConstruction,
+  getAllConstruction
 };
