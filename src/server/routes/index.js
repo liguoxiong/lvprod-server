@@ -1,5 +1,6 @@
 import user from "./user.route";
 import category from "./category.route";
+import construction from "./construction.route";
 import product from "./product.route";
 import image from "./image.route";
 import sidebarList from "./sidebarList.route";
@@ -10,6 +11,7 @@ import mail from "./mail.route";
 export default {
   user,
   category,
+  construction,
   product,
   image,
   sidebarList,

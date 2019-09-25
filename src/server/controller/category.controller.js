@@ -10,7 +10,7 @@ const createCategory = async (req, res) => {
         success: false,
         message: error.details[0].message
       });
-    const imagePath = await saveImage(req.body.logo);
+    const imagePath = await saveImage(req.body.image);
     console.log("imagepath", imagePath);
     if (!imagePath.success) {
       return res.status(500).send({

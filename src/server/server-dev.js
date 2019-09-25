@@ -25,6 +25,7 @@ app.use(
 app.use(webpackHotMiddleware(compiler));
 app.use("/api/user", routes.user);
 app.use("/api/categories", routes.category);
+app.use("/api/constructions", routes.construction);
 app.use("/api/products", routes.product);
 app.use("/api/photos", routes.image);
 app.use("/api/routes", routes.sidebarList);

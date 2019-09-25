@@ -75,6 +75,19 @@ const database = [
     },
     icon: "cluster",
     route: "/service"
+  },
+  {
+    id: "8",
+    breadcrumbParentId: "1",
+    name: "Construction",
+    zh: {
+      name: "范畴"
+    },
+    "pt-br": {
+      name: "Usuário"
+    },
+    icon: "cluster",
+    route: "/construction"
   }
   // {
   //   id: '7',
