@@ -126,7 +126,7 @@ const updateConstructionById = async (req, res) => {
       }
     }
     let construction = await Construction.findByIdAndUpdate(req.params.id, {
-      $set: { rst, image: imageSubmit }
+      $set: { ...rst, image: imageSubmit }
     });
     if (!construction)
       return res.status(400).send({

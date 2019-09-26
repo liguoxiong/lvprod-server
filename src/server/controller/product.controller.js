@@ -141,7 +141,7 @@ const updateProductById = async (req, res) => {
       }
     }
     let product = await Product.findByIdAndUpdate(req.params.id, {
-      $set: { rst, image: imageSubmit }
+      $set: { ...rst, image: imageSubmit }
     });
     if (!product)
       return res.status(400).send({
