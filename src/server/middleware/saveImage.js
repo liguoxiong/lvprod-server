@@ -3,8 +3,10 @@ import fs from "fs";
 import path from "path";
 
 export const isBase64String = dataString => {
-  const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-  return matches.length === 3;
+  const base64Regx = /^data:([A-Za-z-+/]+);base64,(.+)$/;
+    return base64Regx.test(dataString);
+  // const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+  // return matches.length === 3;
 };
 
 const decodeBase64Image = dataString => {

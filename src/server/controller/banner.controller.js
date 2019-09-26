@@ -86,19 +86,21 @@ const getBannerById = async (req, res) => {
 };
 
 const updateBannerById = async (req, res) => {
-  const updateObj = req.body;
-  if (isBase64String(req.body.image)) {
-    const imagePath = await saveImage(req.body.image);
-    console.log("imagepath", imagePath);
-    if (!imagePath.success) {
-      return res.status(500).send({
-        success: false,
-        message: imagePath.message
-      });
-    }
-    updateObj.image = imagePath.message;
-  }
   try {
+    const updateObj = req.body;
+    if (isBase64String(req.body.image)) {
+      const imagePath = await saveImage(req.body.image);
+      // console.log("imagepath", imagePath);
+      if (!imagePath.success) {
+        return res.status(500).send({
+          success: false,
+          message: imagePath.message
+        });
+      }
+      updateObj.image = imagePath.message;
+      // console.log('patch', updateObj);
+    }
+  
     let banner = await Banner.findByIdAndUpdate(req.params.id, {
       $set: updateObj
     });

@@ -93,19 +93,23 @@ const getInfoById = async (req, res) => {
 };
 
 const updateInfoById = async (req, res) => {
-  const updateObj = req.body;
-  if (isBase64String(req.body.logo)) {
-    const imagePath = await saveImage(req.body.logo);
-    console.log("imagepath", imagePath);
-    if (!imagePath.success) {
-      return res.status(500).send({
-        success: false,
-        message: imagePath.message
-      });
-    }
-    updateObj.logo = imagePath.message;
-  }
   try {
+    const updateObj = req.body;
+    // console.log('obj', req.body)
+    if (isBase64String(req.body.logo)) {
+      // console.log('isBase64')
+      const imagePath = await saveImage(req.body.logo);
+      // console.log("imagepath", imagePath);
+      if (!imagePath.success) {
+        return res.status(500).send({
+          success: false,
+          message: imagePath.message
+        });
+      }
+      updateObj.logo = imagePath.message;
+      // console.log('patch', updateObj);
+    }
+  
     let info = await Info.findByIdAndUpdate(req.params.id, {
       $set: updateObj
     });

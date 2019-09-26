@@ -85,19 +85,20 @@ const getCategoryById = async (req, res) => {
 };
 
 const updateCategoryById = async (req, res) => {
-  const updateObj = req.body;
-  if (isBase64String(req.body.image)) {
-    const imagePath = await saveImage(req.body.image);
-    console.log("imagepath", imagePath);
-    if (!imagePath.success) {
-      return res.status(500).send({
-        success: false,
-        message: imagePath.message
-      });
-    }
-    updateObj.image = imagePath.message;
-  }
   try {
+    const updateObj = req.body;
+    if (isBase64String(req.body.image)) {
+      const imagePath = await saveImage(req.body.image);
+      // console.log("imagepath", imagePath);
+      if (!imagePath.success) {
+        return res.status(500).send({
+          success: false,
+          message: imagePath.message
+        });
+      }
+      updateObj.image = imagePath.message;
+    }
+  
     let category = await Category.findByIdAndUpdate(req.params.id, {
       $set: updateObj
     });
