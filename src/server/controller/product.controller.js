@@ -1,5 +1,6 @@
 import Product, { validateProduct } from "../models/product.model";
 import mongoose from "mongoose";
+import saveImage from "./../middleware/saveImage";
 
 const createProduct = async (req, res) => {
   try {
@@ -10,6 +11,24 @@ const createProduct = async (req, res) => {
         success: false,
         message: error.details[0].message
       });
+    const { image } = req.body;
+    let imageSubmit = [];
+    image.forEach(async item => {
+      const imagePath = await saveImage(item.thumbUrl);
+      // console.log("imagepath", imagePath);
+      if (!imagePath.success) {
+        return res.status(500).send({
+          success: false,
+          message: imagePath.message
+        });
+      }
+      imageSubmit.push({
+        uid: item.uid,
+        name: item.name,
+        status: item.status,
+        url: imagePath.message
+      });
+    });
 
     //find an existing category
     let product = await Product.findOne({ name: req.body.name });
@@ -27,7 +46,7 @@ const createProduct = async (req, res) => {
       model_number: req.body.model_number,
       dilivery_time: req.body.dilivery_time,
       warranty_time: req.body.warranty_time,
-      image: req.body.image,
+      image: imageSubmit,
       category: mongoose.Types.ObjectId(req.body.category)
     });
     await product.save();
@@ -95,8 +114,34 @@ const getAllProduct = async (req, res) => {
 
 const updateProductById = async (req, res) => {
   try {
+    const { image, ...rst } = req.body;
+    let imageSubmit = [];
+    for (const item of image) {
+      if (item.thumbUrl) {
+        const imagePath = await saveImage(item.thumbUrl);
+        if (!imagePath.success) {
+          return res.status(500).send({
+            success: false,
+            message: imagePath.message
+          });
+        }
+        imageSubmit.push({
+          uid: item.uid,
+          name: item.name,
+          status: item.status,
+          url: imagePath.message
+        });
+      } else {
+        imageSubmit.push({
+          uid: item.uid,
+          name: item.name,
+          status: item.status,
+          url: item.url
+        });
+      }
+    }
     let product = await Product.findByIdAndUpdate(req.params.id, {
-      $set: req.body
+      $set: { rst, image: imageSubmit }
     });
     if (!product)
       return res.status(400).send({

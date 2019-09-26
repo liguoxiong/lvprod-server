@@ -104,14 +104,18 @@ const updateConstructionById = async (req, res) => {
     for (const item of image) {
       if (item.thumbUrl) {
         const imagePath = await saveImage(item.thumbUrl);
-        if (imagePath.success) {
-          imageSubmit.push({
-            uid: item.uid,
-            name: item.name,
-            status: item.status,
-            url: imagePath.message
+        if (!imagePath.success) {
+          return res.status(500).send({
+            success: false,
+            message: imagePath.message
           });
         }
+        imageSubmit.push({
+          uid: item.uid,
+          name: item.name,
+          status: item.status,
+          url: imagePath.message
+        });
       } else {
         imageSubmit.push({
           uid: item.uid,
