@@ -85,26 +85,44 @@ const getProductById = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
   try {
-    const limitValue = parseInt(req.query.limit) || 10;
-    const skipValue = parseInt(req.query.skip) || 0;
+    let limitValue = parseInt(req.query.limit) || 10;
+    let skipValue = parseInt(req.query.skip) || 0;
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 8;
     const query = {};
     if (req.query.isShow) {
       const isShow = req.query.isShow === "true";
       query.isShow = isShow;
     }
+    if (req.query.pageSize) {
+      limitValue = pageSize;
+    }
+    if (req.body.page) {
+      skipValue = pageSize * page - pageSize;
+    }
     if (req.query.category) {
       const category = mongoose.Types.ObjectId(req.query.category);
       query.category = category;
     }
-    let product = await Product.find(query)
-      .sort("-created_at")
-      .limit(limitValue)
-      .skip(skipValue)
-      .populate("category");
+    let [count, product] = await Promise.all([
+      Product.countDocuments(query),
+      Product.find(query)
+        .sort("-created_at")
+        .limit(limitValue)
+        .skip(skipValue)
+        .populate("category")
+    ]);
+    // const count = await Product.count(query);
+    // let product = await Product.find(query)
+    //   .sort("-created_at")
+    //   .limit(limitValue)
+    //   .skip(skipValue)
+    //   .populate("category");
 
     return res.status(200).send({
       success: true,
-      data: product
+      data: product,
+      total: count
     });
   } catch (err) {
     return res.status(500).send({
