@@ -47,6 +47,7 @@ const createProduct = async (req, res) => {
       dilivery_time: req.body.dilivery_time,
       warranty_time: req.body.warranty_time,
       image: imageSubmit,
+      isShow: req.body.isShow || false,
       category: mongoose.Types.ObjectId(req.body.category)
     });
     await product.save();
@@ -54,7 +55,7 @@ const createProduct = async (req, res) => {
       success: true,
       message: "Add new product successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -64,7 +65,7 @@ const createProduct = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    let product = await Product.findById(req.params.id).populate('category');
+    let product = await Product.findById(req.params.id).populate("category");
     if (!product)
       return res.status(400).send({
         success: false,
@@ -74,7 +75,7 @@ const getProductById = async (req, res) => {
       success: true,
       data: product
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -86,25 +87,26 @@ const getAllProduct = async (req, res) => {
   try {
     const limitValue = parseInt(req.query.limit) || 10;
     const skipValue = parseInt(req.query.skip) || 0;
-    if (req.query.category) {
-      const categoryValue = mongoose.Types.ObjectId(req.query.category);
-      let product = await Product.find({category: categoryValue})
-      .populate('category');
-      return res.status(200).send({
-        success: true,
-        data: product
-      });
+    const query = {};
+    if (req.query.isShow) {
+      const isShow = req.query.isShow === "true";
+      query.isShow = isShow;
     }
-    let product = await Product.find()
+    if (req.query.category) {
+      const category = mongoose.Types.ObjectId(req.query.category);
+      query.category = category;
+    }
+    let product = await Product.find(query)
       .sort("-created_at")
       .limit(limitValue)
       .skip(skipValue)
-      .populate('category');
-    res.status(200).send({
+      .populate("category");
+
+    return res.status(200).send({
       success: true,
       data: product
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -152,7 +154,7 @@ const updateProductById = async (req, res) => {
       success: true,
       message: "Update product successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message
@@ -172,7 +174,7 @@ const deleteProductById = async (req, res) => {
       success: true,
       message: "Delete product successfull"
     });
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send({
       success: false,
       message: err.message

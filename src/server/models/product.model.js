@@ -29,6 +29,10 @@ const ProductSchema = new mongoose.Schema({
   warranty_time: {
     type: String
   },
+  isShow: {
+    type: Boolean,
+    default: false
+  },
   image: {
     type: Array,
     required: true,
@@ -59,6 +63,7 @@ export const validateProduct = product => {
     origin: Joi.string()
       .allow("")
       .optional(),
+    isShow: Joi.boolean(),
     model_number: Joi.string()
       .allow("")
       .optional(),
