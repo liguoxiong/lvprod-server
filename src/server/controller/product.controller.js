@@ -87,18 +87,19 @@ const getAllProduct = async (req, res) => {
   try {
     let limitValue = parseInt(req.query.limit) || 10;
     let skipValue = parseInt(req.query.skip) || 0;
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 8;
+
     const query = {};
     if (req.query.isShow) {
       const isShow = req.query.isShow === "true";
       query.isShow = isShow;
     }
     if (req.query.pageSize) {
+      const pageSize = parseInt(req.query.pageSize);
       limitValue = pageSize;
     }
-    if (req.body.page) {
-      skipValue = pageSize * page - pageSize;
+    if (req.query.page) {
+      const page = parseInt(req.query.page);
+      skipValue = limitValue * page - limitValue;
     }
     if (req.query.category) {
       const category = mongoose.Types.ObjectId(req.query.category);

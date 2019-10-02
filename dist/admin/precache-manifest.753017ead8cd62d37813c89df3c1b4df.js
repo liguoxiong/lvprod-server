@@ -20,11 +20,11 @@ self.__precacheManifest = [
     "url": "/admin/static/user-background.543334fb.png"
   },
   {
-    "revision": "5d3ae736b44715e49236",
+    "revision": "dce8ff029de11731722d",
     "url": "/admin/umi.js"
   },
   {
-    "revision": "5d3ae736b44715e49236",
+    "revision": "dce8ff029de11731722d",
     "url": "/admin/umi.css"
   },
   {
@@ -212,7 +212,7 @@ self.__precacheManifest = [
     "url": "/admin/p__product__index.async.js"
   },
   {
-    "revision": "3193e02cb050798c54ad",
+    "revision": "2095e60d3177f4356302",
     "url": "/admin/p__product__model.js.async.js"
   },
   {
@@ -248,8 +248,8 @@ self.__precacheManifest = [
     "url": "/admin/p__banner__$id__index.async.js"
   },
   {
-    "revision": "1afcb8aa128dc7161de74ca9c5d7a544",
-    "url": "/admin/logo/logo@152.png"
+    "revision": "f088a2fc4cd668246b76ee53bb5c4ccf",
+    "url": "/admin/logo/logo@192.png"
   },
   {
     "revision": "6f6b469d768e8fe525a8",
@@ -260,16 +260,16 @@ self.__precacheManifest = [
     "url": "/admin/manifest.json"
   },
   {
-    "revision": "fa34d4b24a5e581755f947b398ac92a6",
-    "url": "/admin/logo/logo@512.png"
-  },
-  {
-    "revision": "aac84280dbf5be13fa4a4af9baea1b30",
-    "url": "/admin/logo/logo@384.png"
+    "revision": "ab2b389f9b903872cacf46e33bbed76c",
+    "url": "/admin/logo/logo@96.png"
   },
   {
     "revision": "8da3632eae0e30d0c60d",
     "url": "/admin/p__UIElement__editor__index.async.js"
+  },
+  {
+    "revision": "fa34d4b24a5e581755f947b398ac92a6",
+    "url": "/admin/logo/logo@512.png"
   },
   {
     "revision": "ca512a42280545acb724b3c11e0c679b",
@@ -280,16 +280,16 @@ self.__precacheManifest = [
     "url": "/admin/logo/logo@128.png"
   },
   {
-    "revision": "ab2b389f9b903872cacf46e33bbed76c",
-    "url": "/admin/logo/logo@96.png"
+    "revision": "aac84280dbf5be13fa4a4af9baea1b30",
+    "url": "/admin/logo/logo@384.png"
   },
   {
     "revision": "6f6b469d768e8fe525a8",
     "url": "/admin/layouts__index.chunk.css"
   },
   {
-    "revision": "f088a2fc4cd668246b76ee53bb5c4ccf",
-    "url": "/admin/logo/logo@192.png"
+    "revision": "1afcb8aa128dc7161de74ca9c5d7a544",
+    "url": "/admin/logo/logo@152.png"
   },
   {
     "revision": "c0e293d83f7b3f4258951e458c6a6a5e",
