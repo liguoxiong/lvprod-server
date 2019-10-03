@@ -1,6 +1,6 @@
 import Product, { validateProduct } from "../models/product.model";
 import mongoose from "mongoose";
-import saveImage from "./../middleware/saveImage";
+import saveImage, { isBase64String } from "./../middleware/saveImage";
 
 const createProduct = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ const createProduct = async (req, res) => {
     const { image } = req.body;
     let imageSubmit = [];
     image.forEach(async item => {
-      const imagePath = await saveImage(item.thumbUrl);
+      const imagePath = await saveImage(item.url);
       // console.log("imagepath", imagePath);
       if (!imagePath.success) {
         return res.status(500).send({
@@ -138,7 +138,21 @@ const updateProductById = async (req, res) => {
     const { image, ...rst } = req.body;
     let imageSubmit = [];
     for (const item of image) {
-      if (item.thumbUrl) {
+      if (isBase64String(item.url)) {
+        const imagePath = await saveImage(item.url);
+        if (!imagePath.success) {
+          return res.status(500).send({
+            success: false,
+            message: imagePath.message
+          });
+        }
+        imageSubmit.push({
+          uid: item.uid,
+          name: item.name,
+          status: item.status,
+          url: imagePath.message
+        });
+      } else if (item.thumbUrl) {
         const imagePath = await saveImage(item.thumbUrl);
         if (!imagePath.success) {
           return res.status(500).send({

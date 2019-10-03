@@ -44,7 +44,6 @@ const saveImage = async imageData => {
       "image-" + uniqueSHA1String + "." + imageTypeDetected[1];
     const imagePath = uploadPath + "/images/" + uniqueRandomImageName;
     try {
-      console.log("writting file");
       fs.writeFile(imagePath, imageBuffer.data, function(err) {
         return {
           success: false,
