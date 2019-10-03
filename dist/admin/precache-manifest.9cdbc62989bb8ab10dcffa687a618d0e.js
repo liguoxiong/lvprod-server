@@ -204,11 +204,11 @@ self.__precacheManifest = [
     "url": "/admin/p__product__$id__models__detail.js.async.js"
   },
   {
-    "revision": "66c2f87a391962f6de21",
+    "revision": "56fa98810d3a00e0c9fa",
     "url": "/admin/p__product__index.chunk.css"
   },
   {
-    "revision": "66c2f87a391962f6de21",
+    "revision": "56fa98810d3a00e0c9fa",
     "url": "/admin/p__product__index.async.js"
   },
   {
@@ -240,8 +240,8 @@ self.__precacheManifest = [
     "url": "/admin/p__service__index.chunk.css"
   },
   {
-    "revision": "ca512a42280545acb724b3c11e0c679b",
-    "url": "/admin/logo.svg"
+    "revision": "4de769202c3de12eb1e01c990969e786",
+    "url": "/admin/logo/logo@144.png"
   },
   {
     "revision": "cdce4354048961911adc",
@@ -264,20 +264,20 @@ self.__precacheManifest = [
     "url": "/admin/logo/logo@512.png"
   },
   {
-    "revision": "aac84280dbf5be13fa4a4af9baea1b30",
-    "url": "/admin/logo/logo@384.png"
-  },
-  {
     "revision": "6477c5bc99f9b0d02df7",
     "url": "/admin/p__UIElement__editor__index.async.js"
   },
   {
-    "revision": "6380fd2b05446333bc5a5a2d43d4a476",
-    "url": "/admin/logo/logo@128.png"
+    "revision": "aac84280dbf5be13fa4a4af9baea1b30",
+    "url": "/admin/logo/logo@384.png"
   },
   {
-    "revision": "4de769202c3de12eb1e01c990969e786",
-    "url": "/admin/logo/logo@144.png"
+    "revision": "ca512a42280545acb724b3c11e0c679b",
+    "url": "/admin/logo.svg"
+  },
+  {
+    "revision": "6380fd2b05446333bc5a5a2d43d4a476",
+    "url": "/admin/logo/logo@128.png"
   },
   {
     "revision": "ab2b389f9b903872cacf46e33bbed76c",
