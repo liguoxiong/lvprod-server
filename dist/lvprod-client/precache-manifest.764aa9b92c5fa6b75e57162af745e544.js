@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5b78e862cb2f74284cf1b0e36391d9f4",
+    "revision": "40c79188ac4aa06333d14e1ac28ab682",
     "url": "/lvprod-client/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/lvprod-client/static/css/2.ef41b40c.chunk.css"
   },
   {
-    "revision": "308c9bc408d9242126bc",
+    "revision": "71eae46386c6284dca80",
     "url": "/lvprod-client/static/css/main.bd6b1742.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/lvprod-client/static/js/2.c8d9761c.chunk.js"
   },
   {
-    "revision": "308c9bc408d9242126bc",
-    "url": "/lvprod-client/static/js/main.81ab26ad.chunk.js"
+    "revision": "71eae46386c6284dca80",
+    "url": "/lvprod-client/static/js/main.ecd0e197.chunk.js"
   },
   {
     "revision": "f83df487ac0b61e9d830",
