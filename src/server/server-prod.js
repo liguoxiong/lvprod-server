@@ -1,5 +1,5 @@
 import path from "path";
-import prerenderNode from 'prerender-node'
+import prerenderNode from "prerender-node";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -31,7 +31,21 @@ app.use("/api/sendmail", routes.mail);
 app.get("/", (req, res) => {
   res.sendFile(HOME_HTML_FILE);
 });
-
+app.get("/contact", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
+app.get("/products", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
+app.get("/product/*", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
+app.get("/services", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
+app.get("/constructions", (req, res) => {
+  res.sendFile(HOME_HTML_FILE);
+});
 const PORT = process.env.PORT || 8080;
 connectDb();
 app.listen(PORT, () => {
