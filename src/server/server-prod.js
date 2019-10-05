@@ -9,7 +9,7 @@ import connectDb from "./../configs/db";
 const app = express(),
   DIST_DIR = __dirname,
   ADMIN_HTML_FILE = path.join(DIST_DIR, "admin/index.html"),
-  HOME_HTML_FILE = path.join(DIST_DIR, "home/index.html");
+  HOME_HTML_FILE = path.join(DIST_DIR, "index.html");
 app.use(express.static(DIST_DIR));
 app.use(cors());
 app.use(prerenderNode);
