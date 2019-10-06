@@ -1,2 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+
+# Sitemap files
+Sitemap: https://vulocgroup.com/sitemap.xml
