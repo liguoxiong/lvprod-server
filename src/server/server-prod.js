@@ -8,7 +8,8 @@ import connectDb from "./../configs/db";
 const app = express(),
   DIST_DIR = __dirname,
   ADMIN_HTML_FILE = path.join(DIST_DIR, "admin/index.html"),
-  HOME_HTML_FILE = path.join(DIST_DIR, "index.html");
+  HOME_HTML_FILE = path.join(DIST_DIR, "index.html"),
+  ERROR_404_HTML_FILE = path.join(DIST_DIR, "E404/index.html");
 app.use(express.static(DIST_DIR));
 app.use(cors());
 app.use(
@@ -47,6 +48,9 @@ app.get("/services", (req, res) => {
 app.get("/constructions", (req, res) => {
   res.sendFile(HOME_HTML_FILE);
 });
+app.use(function (req, res, next) {
+  res.sendFile(ERROR_404_HTML_FILE);
+})
 const PORT = process.env.PORT || 8080;
 connectDb();
 app.listen(PORT, () => {
